@@ -5,7 +5,7 @@ def downloadAudio(URL):
     # Yes, this is an example code from yt-dlp
     ydl_opts = { 
     'format': 'm4a/bestaudio/best',
-    'postprocessors': [{  # Extract audio using ffmpeg
+    'postprocessors': [{ 
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'm4a',
     }]
@@ -16,10 +16,11 @@ def downloadAudio(URL):
 
 def downloadVideo(URL):
 
-    ydl_opts = {
-        'format': 'mp4/bestaudio/best'
+    ydl_opts = { 
+    'format': 'bestvideo/best/mp4',
+
     }
-    
+
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         error_code = ydl.download(URL)
 
@@ -34,8 +35,8 @@ def options(f: str):
             print("The shiitiest version of video/audio downloader for YouTube")
             print("\tmain.py [options] <link to youtube>")
             print("\t-h for help/displaying this message, doesn't require args")
-            print("\t-v for downloading video ===> UNDER CONSTRUCTION")
-            print("\t-a for downloading only audio in mp3 format")
+            print("\t-v for downloading video --> UNDER CONSTRACTION")
+            print("\t-a for downloading only audio in m4a format")
             print("This piece of code is only held together by hopes and yt-dlp library")
             print("GitHub: https://github.com/yt-dlp/yt-dlp")
         if(f[1] == "-a"):
@@ -53,5 +54,23 @@ options(sys.argv)
 
 
 """
-
+potential uses of ffmpeg
+    FFmpegConcatPP,
+    FFmpegCopyStreamPP,
+    FFmpegEmbedSubtitlePP,
+    FFmpegExtractAudioPP,
+    FFmpegFixupDuplicateMoovPP,
+    FFmpegFixupDurationPP,
+    FFmpegFixupM3u8PP,
+    FFmpegFixupM4aPP,
+    FFmpegFixupStretchedPP,
+    FFmpegFixupTimestampPP,
+    FFmpegMergerPP,
+    FFmpegMetadataPP,
+    FFmpegPostProcessor,
+    FFmpegSplitChaptersPP,
+    FFmpegSubtitlesConvertorPP,
+    FFmpegThumbnailsConvertorPP,
+    FFmpegVideoConvertorPP,
+    FFmpegVideoRemuxerPP,
 """
