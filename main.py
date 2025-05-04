@@ -2,21 +2,32 @@ import yt_dlp
 import sys
 
 def downloadAudio(URL):
-    ydl_opts = {
-    'format': 'mp3/bestaudio/best',
+    # Yes, this is an example code from yt-dlp
+    ydl_opts = { 
+    'format': 'm4a/bestaudio/best',
     'postprocessors': [{  # Extract audio using ffmpeg
         'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
+        'preferredcodec': 'm4a',
     }]
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         error_code = ydl.download(URL)
 
+def downloadVideo(URL):
+
+    ydl_opts = {
+        'format': 'mp4/bestaudio/best'
+    }
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        error_code = ydl.download(URL)
+
+
 def options(f: str):
     try:
         if (len(f) < 2):
-            raise Exception("No option has been choosen")
+            raise Exception("No option has been choosen. Please run it through console and give it options. Run \"python3 main.py -h\" for help")
         if ("-" not in f[1]):
             raise Exception("No argument has been given")
         if (f[1] == "-h"):
@@ -29,6 +40,8 @@ def options(f: str):
             print("GitHub: https://github.com/yt-dlp/yt-dlp")
         if(f[1] == "-a"):
             downloadAudio(f[2])
+        if(f[1] == "-v"):
+            downloadVideo(f[2])
 
     except Exception as e: 
         print(f"Something went wrong: {e.args[0]}")
