@@ -14,6 +14,16 @@ Because I am an idiot. Also, I wanted to make it really simple and convinient fo
 
 You will need to use `python3 main.py -v <link to the video>`. This will download video in mp4 format. 
 
+Yes, the quality is bad, I am figuring out how to do it right.
+
 # Audio
 
-Use `python3 main.py -a <link to the video>`. This will download audio on mp3 format.
+Use `python3 main.py -a <link to the video>`. This will download audio on m4a format.
+
+
+## Dependencies
+
+    * yt-dlp
+    * ffmpeg
+
+List could be expanded upon me coming up with some ingenious functionality. 
