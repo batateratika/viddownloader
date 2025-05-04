@@ -1,14 +1,16 @@
 import yt_dlp
 import sys
+import os
+import ffmpeg
 
 def downloadAudio(URL):
     # Yes, this is an example code from yt-dlp
     ydl_opts = { 
-    'format': 'm4a/bestaudio/best',
-    'postprocessors': [{ 
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'm4a',
-    }]
+        'format': 'm4a/bestaudio/best',
+        'postprocessors': [{ 
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'm4a',
+        }]
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -16,14 +18,37 @@ def downloadAudio(URL):
 
 def downloadVideo(URL):
 
-    ydl_opts = { 
-    'format': 'bestvideo/best/mp4',
+    def format_selector(ctx):
+    
+        # formats are already sorted worst to best
+        formats = ctx.get('formats')[::-1]
 
+        # acodec='none' means there is no audio
+        best_video = next(f for f in formats
+                          if f['vcodec'] != 'none' and f['acodec'] == 'none')
+
+        # find compatible audio extension
+        audio_ext = {'mp4': 'm4a', 'webm': 'webm'}[best_video['ext']]
+        # vcodec='none' means there is no video
+        best_audio = next(f for f in formats if (
+            f['acodec'] != 'none' and f['vcodec'] == 'none' and f['ext'] == audio_ext))
+
+        # These are the minimum required fields for a merged format
+        yield {
+            'format_id': f'{best_video["format_id"]}+{best_audio["format_id"]}',
+            'ext': best_video['ext'],
+            'requested_formats': [best_video, best_audio],
+            # Must be + separated list of protocols
+            'protocol': f'{best_video["protocol"]}+{best_audio["protocol"]}'
+        }
+
+
+    ydl_opts = {
+        'format': format_selector,
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         error_code = ydl.download(URL)
-
 
 def options(f: str):
     try:
@@ -47,30 +72,4 @@ def options(f: str):
     except Exception as e: 
         print(f"Something went wrong: {e.args[0]}")
         
-
-# print(URL)
-
 options(sys.argv)
-
-
-"""
-potential uses of ffmpeg
-    FFmpegConcatPP,
-    FFmpegCopyStreamPP,
-    FFmpegEmbedSubtitlePP,
-    FFmpegExtractAudioPP,
-    FFmpegFixupDuplicateMoovPP,
-    FFmpegFixupDurationPP,
-    FFmpegFixupM3u8PP,
-    FFmpegFixupM4aPP,
-    FFmpegFixupStretchedPP,
-    FFmpegFixupTimestampPP,
-    FFmpegMergerPP,
-    FFmpegMetadataPP,
-    FFmpegPostProcessor,
-    FFmpegSplitChaptersPP,
-    FFmpegSubtitlesConvertorPP,
-    FFmpegThumbnailsConvertorPP,
-    FFmpegVideoConvertorPP,
-    FFmpegVideoRemuxerPP,
-"""
