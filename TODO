@@ -4,9 +4,10 @@
 * Ability to add to args more then one link
 * Ability to download playlists
 * Ability to download a fragment
-* Add requirements 
+* Add requirements (DONE)
 * Add actually original code
 * Add config file (to, for example, create some other output destination or change file name of downloaded file)
+* Add ability to choose quality
 
 ### Not neccecery 
 
