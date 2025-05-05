@@ -8,6 +8,7 @@
 * Add actually original code
 * Add config file (to, for example, create some other output destination or change file name of downloaded file)
 * Add ability to choose quality
+* Make that you need do input the name of program not python main ...
 
 ### Not neccecery 
 
