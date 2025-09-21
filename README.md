@@ -6,7 +6,7 @@ If in short, personal mini-project that utilizes [yt-dlp](https://github.com/yt-
 
 ## DISCLAIMER
 
-THIS PROJECT IS DECREPIT, I am making new one on C, which will cover all the TODO stuff.
+THIS PROJECT IS DECREPIT, I am making new one, which will cover all the TODO stuff. Why? Because I don't like the code.
 
 Almost all of the code was copied over from examples of yt-dlp, I just put it togther so all you need is to give a link.
 I am not proud of myself. 
