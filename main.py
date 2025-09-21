@@ -60,7 +60,7 @@ def options(f: str):
             print("The shiitiest version of video/audio downloader for YouTube")
             print("\tmain.py [options] <link to youtube>")
             print("\t-h for help/displaying this message, doesn't require args")
-            print("\t-v for downloading video --> UNDER CONSTRACTION")
+            print("\t-v for downloading video in mp4 format")
             print("\t-a for downloading only audio in m4a format")
             print("This piece of code is only held together by hopes and yt-dlp library")
             print("GitHub: https://github.com/yt-dlp/yt-dlp")
